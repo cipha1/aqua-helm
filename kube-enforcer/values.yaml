@@ -10,13 +10,13 @@ global:
   # gs = GaintSwarm platform
   # k3s = k3s kubernetes platform
   # mke = Mirantis Kubernetes Engine
-  platform: ""
+  platform: "eks"
   enforcer:
     enabled: false
   gateway:
     # change address to gateway endpoint. For Saas use the hostname containing `-gw` 
     # from your onboarding email and switch port to 443
-    address: aqua-gateway-svc.aqua
+    address: 20.126.171.16
     port: 8443
   # Specifies the secret data for imagePullSecrets needed to fetch the private docker images
   imageCredentials:
@@ -93,7 +93,7 @@ fullnameOverride: "aqua-kube-enforcer"
 
 # Display a custom cluster name in the infrastructure tab of Aqua Enterprise
 # Follow https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#dns-label-names for naming conventions”
-clusterName: "Default-cluster-name"
+clusterName: "Argo-cluster"
 logicalName: ""
 logLevel: ""
 
@@ -111,7 +111,7 @@ dnsNdots:
 # It will fail with following error. To solve it delete previously create secret kubectl delete secret aqua-kube-enforcer-certs -n aqua
 # Error: UPGRADE FAILED: error validating "": error validating data: unknown object type "nil" in Secret.data.ca.crt
 certsSecret:
-  autoGenerate: false
+  autoGenerate: true
   create: true
   annotations: {}
   # If you're using existing certs change the name to existing secret name
@@ -146,7 +146,7 @@ aquaSecret:
   create: true
   name: "aqua-kube-enforcer-token"
   # Enter the enforcer token in "clear-text" format without quotes generated from the Console UI, if `aquaSecret.create: true`
-  kubeEnforcerToken: ke-token
+  kubeEnforcerToken: argo-token
 
 clusterRole:
   name: "aqua-kube-enforcer"
